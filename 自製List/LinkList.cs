@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace 自製List
 {
-    internal class LinkList
+    internal class LinkList : IEnumerable, IEnumerator
     {
         public Node Head {  get; set; }
         private int count = 0;
@@ -18,6 +19,9 @@ namespace 自製List
                 return this.count;
             }
         }
+        private int index = -1;
+        
+        public object Current => this[index];
 
         public LinkList() 
         {
@@ -55,6 +59,7 @@ namespace 自製List
             if(Head == null)
             {
                 Head = node;
+                
                 return;
             }
 
@@ -158,6 +163,23 @@ namespace 自製List
                 this.Remove(list[i]);
                 
             }
+        }
+
+        public bool MoveNext()
+        {
+            index++;
+            return index < this.Count;
+
+        }
+
+        public void Reset()
+        {
+            index = -1;
+        }
+
+        public IEnumerator GetEnumerator()
+        {
+            return this;
         }
     }
 }

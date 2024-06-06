@@ -13,30 +13,31 @@ namespace 自製List
             
             //list2.Add(20);
             //list2.RemoveAt(3);
-            LinkList list = new LinkList();
-            list.Add("A");
-            list.Add("B");
-            list.Add("D");
+            LinkList list = new LinkList
+            {
+                "A",
+                "B",
+                "D"
+            };
 
             LinkList list2 = new LinkList();
             list2.Add("B");
             list2.Add("D");
 
-            list.RemoveRange(list2);
+            list.AddRange(list2);
             //Console.WriteLine(list[0]);
             //Console.WriteLine(list[1]);
             //Console.WriteLine(list[2]);
             //Console.WriteLine(list[3]);
-            for (int i = 0; i < list.Count; i++)
+
+            //  IEnumerator / IEnumerable / IQueryable => 這三個是甚麼東西? 用途?
+
+            foreach (string item in list)
             {
-                Console.WriteLine(list[i]);
+                Console.WriteLine(item);
             }
 
-
-            list.Insert(4, "D");
-
-            list.RemoveAt(2);
-
+            Console.ReadKey();
         }
     }
 }
