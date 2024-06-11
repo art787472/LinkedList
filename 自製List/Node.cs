@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace 自製List
 {
-    internal class Node
+    internal class Node<T>
     {
-        public string Body { get; set; }
-        public Node Next { get; set; }
+        public T Body { get; set; }
+        public Node<T> Next { get; set; }
 
-        public Node(string s) 
+        public Node(T s) 
         {
             this.Body = s;
         }

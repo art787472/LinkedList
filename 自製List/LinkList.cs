@@ -8,9 +8,9 @@ using System.Threading.Tasks;
 
 namespace 自製List
 {
-    internal class LinkList : IEnumerable, IEnumerator
+    internal class LinkList<T>: IEnumerable, IEnumerator
     {
-        public Node Head {  get; set; }
+        public Node<T> Head {  get; set; }
         private int count = 0;
         public int Count
         {
@@ -28,7 +28,7 @@ namespace 自製List
 
         }
 
-        public string this[int index]
+        public T this[int index]
         {
             get
             {
@@ -36,7 +36,7 @@ namespace 自製List
                 {
                     return Head.Body;
                 }
-                Node ptr = Head;
+                Node<T> ptr = Head;
 
                 while(index > 0)
                 {
@@ -52,10 +52,10 @@ namespace 自製List
 
             }
         }
-        public void Add(string s)
+        public void Add(T s)
         {
             this.count++;
-            Node node = new Node(s);
+            Node<T> node = new Node<T>(s);
             if(Head == null)
             {
                 Head = node;
@@ -63,7 +63,7 @@ namespace 自製List
                 return;
             }
 
-            Node ptr = Head;
+            Node<T> ptr = Head;
 
             while(ptr.Next != null)
             {
@@ -73,11 +73,11 @@ namespace 自製List
             ptr.Next = node;
         }
 
-        public void Insert(int index, string s)
+        public void Insert(int index, T s)
         {
-            Node node = new Node(s);
+            Node<T> node = new Node<T>(s);
 
-            Node ptr = Head;
+            Node<T> ptr = Head;
             index--;
             while (index > 0)
             {
@@ -90,28 +90,28 @@ namespace 自製List
                 index--;
             }
 
-            Node temp = ptr.Next;
+            Node<T> temp = ptr.Next;
             ptr.Next = node;
             node.Next = temp;
             this.count++;
         }
 
-        public void Remove(string s)
+        public void Remove(T s)
         {
             if (Head == null)
             {
                 return;
             }
-            if(Head.Body == s)
+            if(Head.Body.Equals(s))
             {
                 Head = Head.Next;
                 this.count--;
                 return;
             }
 
-            Node ptr = Head;
+            Node<T> ptr = Head;
 
-            while(ptr.Next.Body != s)
+            while(!ptr.Next.Body.Equals(s))
             {
                 ptr = ptr.Next;
                 if (ptr.Next == null)
@@ -125,7 +125,7 @@ namespace 自製List
 
         public void RemoveAt(int index)
         {
-            Node ptr = Head;
+            Node<T> ptr = Head;
             index--;
             while(index > 0)
             {
@@ -138,7 +138,7 @@ namespace 自製List
             this.count--;
         }
 
-        public void AddRange(LinkList list)
+        public void AddRange(LinkList<T> list)
         {
             if(Head == null)
             {
@@ -146,7 +146,7 @@ namespace 自製List
                 return;
             }
 
-            Node ptr = Head;
+            Node<T> ptr = Head;
             while(ptr.Next != null)
             {
                 ptr = ptr.Next;
@@ -156,7 +156,7 @@ namespace 自製List
             this.count += list.Count;
         }
 
-        public void RemoveRange(LinkList list)
+        public void RemoveRange(LinkList<T> list)
         {
             for(int i = 0; i < list.count; i++)
             {
@@ -179,7 +179,17 @@ namespace 自製List
 
         public IEnumerator GetEnumerator()
         {
+            this.Reset();
             return this;
         }
+
+        //public IEnumerable<String> GetData()
+        //{
+        //    for(int i = 0; i < this.count;i++)
+        //    {
+        //        yield return this[i];
+        //    }
+        //    yield break;
+        //}
     }
 }
